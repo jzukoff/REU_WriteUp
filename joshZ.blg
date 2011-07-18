@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2010)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: joshZ.aux
+The style file: amsplain.bst
+Database file #1: bibliography.bib
+Warning--missing journal name in hopkins
+Warning--missing year in hopkins
+Warning--missing pages in hopkins
+You've used 1 entry,
+            2213 wiz_defined-function locations,
+            502 strings with 3972 characters,
+and the built_in function-call counts, 245 in all, are:
+= -- 15
+> -- 7
+< -- 0
++ -- 3
+- -- 2
+* -- 20
+:= -- 43
+add.period$ -- 1
+call.type$ -- 1
+change.case$ -- 4
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 11
+empty$ -- 21
+format.name$ -- 2
+if$ -- 41
+int.to.chr$ -- 0
+int.to.str$ -- 1
+missing$ -- 2
+newline$ -- 13
+num.names$ -- 2
+pop$ -- 8
+preamble$ -- 1
+purify$ -- 3
+quote$ -- 0
+skip$ -- 5
+stack$ -- 0
+substring$ -- 5
+swap$ -- 4
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 4
+warning$ -- 3
+while$ -- 2
+width$ -- 2
+write$ -- 15
+(There were 3 warnings)
