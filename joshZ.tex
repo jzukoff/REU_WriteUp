@@ -1,9 +1,16 @@
 \documentclass{article}
 \usepackage{samlogicmath}
-\usepackage{setspace}
 \usepackage{listings}
+\usepackage{appendix}
+\usepackage{graphicx}
 \title{Agent Based Modeling of Crowd Behavior in an Evacuation Scenario}
-\author{Josh Zukoff (Colgate University), Dr. Cliff Behrens (Telcordia)}
+\author{
+Josh Zukoff
+(Colgate University)\\
+Cliff Behrens
+(Telcordia)
+}
+
 \begin{document}
 \fancyheadoffset[LE,RO]{0pt}{\marginparsep + \marginparwidth}
 \maketitle
@@ -15,11 +22,11 @@ space took the form of a stadium and the model attempted to take into
 account psychological aspects like group formation and social
 comparison to accurately represent crowd behavior. Crowd behavior in
 built spaces is of interest to a number of types of
-individuals ie. urban planners, emergency personell. Similarly, agent based modeling can adapt itself to the
+individuals ie. urban planners, emergency personnel. Similarly, agent based modeling can adapt itself to the
 simulation of a vast array of scenarios. My model was written to take
 advantage of flocking behavior to simulate grouping behavior. The
 model illustrates the ability for ABM to approximate crowd behavior
-using low level decision making processes. Additionally various
+using low level decision making processes and flocking behavior. Additionally various
 aspects of communication among people can be shown to have an affect
 on evacuation time.
 
@@ -27,7 +34,6 @@ on evacuation time.
 
 \section{Introduction}
 
-\subsection{Intro to ABM}
 Agent based modeling is a tool/system for modeling and simulating
 anything which can be represented by the interactions of agents in an
 environment. The building blocks of ABM are agents and patches. Agents
@@ -42,7 +48,6 @@ Willensky. Netlogo is an all in one development environment for ABM
 that uses the logo programming language for coding and has an
 attractive GUI for running simulations.
 
-\subsection{Overview of Modeling Crowd Behavior}
 Crowd behavior in built spaces must take into account a few
 aspects. First is that the built space affects the actions taken by
 the individuals and crowd. Second, crowds are made up of individuals
@@ -55,16 +60,88 @@ behavior. Crowds form as a result of these localized behaviors.
 
 Flocking aims to represent the flocking of birds or fish and is
 achieved using three methods: Separation tells an agent to avoid
-neighboars and ``separate from them'', Alignment sets the heading of
+neighbors and ``separate from them'', Alignment sets the heading of
 an agent to the average heading of its flockmates or groupmates, and
 Cohesion brings agents in a flock closer together. These simple
 processes can bring about interesting behavior. By building in
 obstacle avoidance and grouping based on certain factors, flocking can
-be made to be a reasonable representation of group formation and travel.
+be made to be a reasonable representation of group formation and
+travel. Within a group one agent was designated as a group
+leader. This ``leader'' is endowed with more abilities than the
+general group members. The leader is essentially responsible for the
+location of the exit and communicating with the rest of the members of
+the group.
+
+Different parameters controlling communication amongst agents also
+proved to be important in determining total evacuation time. Agents
+could learn exit location from a number of sources: other flockmates,
+other agents, group leaders, and police officers. Once an agent knew
+the location of the exit, depending on the initial parameters, that
+information could propagate back to other agents. Similarly the group
+leader has a ``leader volume'' that can be changed. This parameter
+determines the radius in which the leader can share information about
+exit location. Maximum group size is also configurable, this parameter
+is present to control typical flock size in the model. There are other
+parameters which can be changed; this is just a brief overview of the
+most important aspects. 
+
+\subsection{Literature Review}
+There is a good deal of literature on the subject of crowd behavior and evacuation dynamics. Helbing wrote one of the major pieces on the subject and gives an overview of various techniques for modeling crowd behavior, in addition to pointing out many of the emergent behaviors that arise in crowds. \cite{helbing} Fridman's paper provided an introduction to the notion of social comparison theory and its application to crowd behavior. \cite{fridman} I did utilize this psychological notion in some ways by allowing each agent to have characteristics and then implementing a ``social comparison'' function to be used during group formation. Camillen gave an introduction to using a program like netlogo to model crowds and evacuations in closed spaces. This information was useful because the nature of a closed space is different than that of outdoors. \cite{camillen} Thirion's article conveyed a model of crowd behavior but used advanced path planning techniques to move to exits \cite {thirion}. This article was interesting but in the end I chose to use a more simplistic model without any intelligent path planning. The paper that recalled accounts of evacuees of the World Trade Center by Galea was quite useful in the formation of my model. This paper turned me on to the idea of group formation and group leadership \cite{galea}. From these accounts, my idea to have all agents move at the same speed was also affirmed. From group behavior I came up with the idea of communication, a major aspect of my model. The most useful source of information came from an Open ABM chapter about Crowd Behavior \cite{openabm}. While this source mentioned flocking behavior, it did not explicitly talk about applying this behavior to crowds of people. The idea for that was my mentor's and mine. However, the open abm site did provide a netlogo model that expanded on the default flocking model by adding obstacle avoidance. I took this model even further and adapted it to fit within my model and mimic realistic grouping behavior. The nature of my research was that a lot of the progress was made using my own ideas and developing my model further. While this may not be the most ``correct'' way to research, it seemed to be the best course of action for me.
+
+
 
 \section{Results}
 
-\section{Algorithm/Code}
+Netlogo is a powerful tool for the simulations of models that can be adapted to use agent based modeling. The program makes it simple to code a model and receive instant feedback in the form of running the simulation. Additionally, no two simulations are ever the same (unless the random seed is set manually) because when accessing the array of agents, Netlogo chooses a random order. This allows for more realism in the model. Netlogo's system of turtles and patches make creating a model relatively simple and once the logo programming language is learned, everything is quite intuitive. There is excellent documentation for every command in netlogo and this proved to be handy. There is also a large community using netlogo so finding support and examples was not difficult.
+
+After initially creating an incredibly simple model, where agents escaped a square room but did not avoid eachother and merely bounced off of walls, I eventually figured out how to import a custom drawn image and began work on the current iteration of my model. I created my model incrementally, adding more sophistication at each step while being sure not to ``force'' everything and instead have the result be a product of simple interactions by naive agents. 
+
+The final model operates in three main steps. Initially all agents are sitting in ``seats'' and the first step is to locate and move to an aisle, forming a queue if necessary. After the aisle is reached, agents need to move up the aisle and enter the concourse. Finally, in the concourse the goal is to form a group to facilitate location of an exit. Eventually all agents locate and move to an exit, thus completing the evacuation scenario.
+
+With a homogenous crowd in the sense that everybody walks at a
+constant speed, flocking did appear to be fairly successful at
+approximating group formation and crowd movement with naive agents. By
+building in obstacle avoidance and designating walls and other people
+as ``obstacles,'' the flocking movement was able to navigate the
+concourse without spinning in circles or bouncing off of walls like my
+earlier attempts tended to do. The flocks basically pick a heading at random, turn to avoid obstacles and once they know the location of an exit, set their heading to face that exit. With this behavior built in, the crowd seems reasonably intelligent. Additionally, flocks are dynamic and agents can leave a flock. Grouping behavior is supported by accounts from the World Trade Center evacuation on September 11. From those accounts I learned that groups tended to be small with someone acting as a group leader. Groups were calm and composed as opposed to panicked. For this reason, I allow  all agents travel at the same speed.
+
+Different settings can be modified to achieve slightly different results; the aspect of communication did prove to be one of the biggest factors in my model with regards to evacuation time. With small group sizes (as supported by the accounts of the WTC evacuation) leader volume played a significant role in evacuation time [Figure 1]. The louder the leader, the more agents that leader could inform about exit location. This would lead me to believe that anything that would impede communication between group members like an alarm or another loud noise, would be detrimental to an evacuation.
+
+\begin{figure}[h!]
+  \caption{Leader Volume}
+  \centering
+    \includegraphics[width=0.75\textwidth]{leadervolume}
+\end{figure}
+
+From this figure we can see that as leader volume increases, total evacuation time (which is measured in model time or ticks) decreases for the most part. The difference is not drastic but the trend seems significant enough to allow me to say that in my model, leader volume tends to have the biggest effect on evacuation time. 
+
+I had attempted to implement a number of other things in my model but often agents would get stuck and the simulation would fail to work correct. For that reason, the model has been made as simple as possible; I think that in this case that is a good choice and fits within the agent based modeling paradigm. The agents do not utilize any sort of advanced path planning, rather they walk with a heading (which adapts based on flocking behavior) and react to their surroundings to avoid obstacles and eachother. With this simple behavior, the model never (or hopefully never) breaks down.
+
+For me the success lies in learning a new technique (ABM) and succeeding in modeling a complex situation in a way that appears to be realistic and takes into account some psychological elements like group formation and flocking behavior. ABM is a great tool that will be of use in the future as it can adapt itself to any number of situations.
+
+\subsection{Unique Aspects of this Model}
+The model I created is unique in a number of ways. Unlike other models I have researched, my model embraces simplicity and rather than rely on complicated algorithms for intelligence and path planning, all of the behavior that arises is due to simple phenomena. Group formation, as far as I can tell is unique to my model and is supported by real world accounts. Bringing in some simple aspects of social comparison theory is also unique and while truthfully this could have been abstracted from my model, its inclusion makes the model more realistic.
+
+\section{Conclusion}
+I am not entirely sure how much more work will get done on this model after my time at DIMACS is over. There are some things that could expand the model but none that seem to be particularly imperative. One thing that I would find interesting to implement would be endowing agents with the knowlege that they must evacuate at different times rather than beginning a global evacuation all at once. This could pose a problem however because due to the nature of my model, if there is an agent in the way while looking for an aisle, a queue will form and so agents who knew of the eavacuation would be unable to move. One way around this would be to inform entire sections at a time, which does seem realistic. 
+
+That being said, I do plan on continuing with another DIMACS project while back at school. The project will be done with James Leslie and is an implementation of Gene's fingerprint classification method.
+
+Because a large amount of my research involved using and implementing my own ideas, remaining ethical was not a large problem. I did do some background research and have cited the ideas learned from that research where appropriate. Netlogo also provides a section in the information tab to reference other models used which I used when appropriate. 
+
+Maintaining a professional demeanor while at DIMACS was also important. Paying attention to, and getting the most out of, the various speakers and activities was a great experience. Showing up to the office every day and working on my reasearch was also something that was very important. I was also ethical in my correspondence with my mentor. We met weekly and I did my best to convey everything that I have done, in addition to talking about new ideas to implement. The most important thing to being ethical is giving credit where credit is due.
+
+The DIMACS Reu program as a whole was an amazing experience. I truly cannot think of anything major that I would suggest changing. My time here has been invaluable and really has motivated me to pursue a graduate degree after graduating from Colgate. During the summer I have learned many new tools, including Emacs, latex, git, and most importantly, netlogo. I enjoyed nearly all of the seminars and activities. I do very much believe that I have gotten a great deal out of this summer. Gene, Cliff, and everybody else at DIMACS has made this summer a great one.
+
+
+
+
+\bibliographystyle{acm}
+\bibliography{bibliography}
+\appendixpage
+\appendix
+\section{Netlogo Algorithm}
 \lstset{breaklines=true, language=Lisp}
 \begin{lstlisting}
 globals [middle rightExit]
@@ -550,15 +627,6 @@ end
 
 \end{lstlisting}
 
-
-\section{Conclusion}
-
-
-
-
-\cite{hopkins}
-\bibliographystyle{amsplain}
-\bibliography{bibliography}
 
 \end{document}
 

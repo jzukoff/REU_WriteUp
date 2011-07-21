@@ -1,13 +1,27 @@
-\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
-\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
-% \MRhref is called by the amsart/book/proc definition of \MR.
-\providecommand{\MRhref}[2]{%
-  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
-}
-\providecommand{\href}[2]{#2}
 \begin{thebibliography}{1}
 
-\bibitem{hopkins}
-Sam Hopkins, \emph{Could minds be (anything like) machines?}
+\bibitem{openabm}
+Crowd behavior (open abm).
+
+\bibitem{camillen}
+{\sc Camillen, F. e.~a.}
+\newblock Multi agent simulation of pedestrian behavior in closed spatial
+  environments.
+
+\bibitem{fridman}
+{\sc Fridman, N., and Kaminka, G.}
+\newblock Computability and logic.
+
+\bibitem{galea}
+{\sc Galea, E.~R.}
+\newblock An analysis of human behavior during evacuation.
+
+\bibitem{helbing}
+{\sc Helbing, D., and Johansson, A.}
+\newblock Pedestrian, crowd and evacuation dynamics.
+
+\bibitem{thirion}
+{\sc Thirion, T., and Basu, S.~K.}
+\newblock Real-time crowd simulation for emergency planning.
 
 \end{thebibliography}
